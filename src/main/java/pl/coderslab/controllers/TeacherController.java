@@ -1,16 +1,13 @@
 package pl.coderslab.controllers;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.BindingType;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import pl.coderslab.model.Teacher;
@@ -27,8 +24,7 @@ public class TeacherController {
 	@Autowired
 	private ChildrenRepository childrenRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	
 
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String showLoginForm(Model model) {
@@ -55,12 +51,36 @@ public class TeacherController {
 	public String logining(@SessionAttribute(required=false) Long userId, Model model) {
 		if (userId != null) {
 			model.addAttribute("childrens", childrenRepository.findAll());
-
+			
 			return "childrenList";
 		} else {
 			return "loginTeacher";
 		}
 
+	}
+	
+	@RequestMapping(path = "/add", method = RequestMethod.GET)
+	public String addTeacher(@SessionAttribute(required = false) Long userId, Model model) {
+		if (userId != null) {
+			model.addAttribute("teacher", new Teacher());
+			
+			return "addTeacher";
+		} else {
+			return "redirect:/login";
+		}
+	}
+
+	@RequestMapping(path = "/add", method = RequestMethod.POST)
+	public String addTeacher(@SessionAttribute(required = false) Long userId,Teacher teacher, Model model) {
+		if (userId != null) {
+			
+				teacherRepository.save(teacher);
+				
+				return "head";
+			
+		} else {
+			return "loginTeacher";
+		}
 	}
 
 	@RequestMapping(path = "/logout", method = RequestMethod.GET)

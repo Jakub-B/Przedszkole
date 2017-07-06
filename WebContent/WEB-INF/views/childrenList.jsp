@@ -14,7 +14,7 @@
 			<th>First Name</th>
 			<th>Second Name</th>
 			<th>Teacher</th>
-			<th>Parent</th>
+			
 			<th>Edit</th>
 			<th>Delete</th>
 
@@ -24,10 +24,10 @@
 			<tr>
 				<td>${child.firstName }</td>
 				<td>${child.lastName }</td>
-				<td>${child.teacher.firstName} ${child.teacher.lastName}</td>
-				<td><a href="">rodzice</a></td>
+				<td>${child.teacher.lastName}</td>
+				
 				<td><a href="">Edytuj</a></td>
-				<td><a href="">Usuń</a></td>
+				<td><a href="http://localhost:8080/JEE_Exam_6/children/delete/${child.id}">Usuń</a></td>
 				
 			</tr>
 		</c:forEach>

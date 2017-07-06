@@ -1,16 +1,16 @@
 package pl.coderslab.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Children {
@@ -19,34 +19,34 @@ public class Children {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
+	@Size(min = 3)
 	private String firstName;
 
-	@NotBlank
+	@Size(min = 3)
 	private String lastName;
 
-	@ManyToOne
+	@ManyToOne(cascade = { /*CascadeType.ALL, CascadeType.PERSIST, CascadeType.REFRESH,*/ CascadeType.REMOVE})
+//	@JoinColumn(name="teacher_id")
 	private Teacher teacher;
 
-	@ManyToMany
-	private List<Parent> parents = new ArrayList<>();;
+	@ManyToMany(mappedBy = "childrens")//(cascade = { CascadeType.ALL/*, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE*/})
+	private List<Parent> parents;
 
-	
+	@ManyToOne
+	private Paymant payments;
+
 	public Children() {
 		super();
 	}
 
-	
-
-	public Children(String firstName, String lastName, Teacher teacher, List<Parent> parents) {
+	public Children(String firstName, String lastName, Teacher teacher, List<Parent> parents, Paymant payments) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.teacher = teacher;
 		this.parents = parents;
+		this.payments = payments;
 	}
-
-
 
 	public String getFirstName() {
 		return firstName;
@@ -78,6 +78,14 @@ public class Children {
 
 	public void setParents(List<Parent> parents) {
 		this.parents = parents;
+	}
+
+	public Paymant getPayments() {
+		return payments;
+	}
+
+	public void setPayments(Paymant payments) {
+		this.payments = payments;
 	}
 
 	public Long getId() {

@@ -8,20 +8,37 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Przedszkole Kredka</h1>
-	<h2>Logowanie nauczycieli</h2>
-	<br>
 	<form:form method="post" modelAttribute="teacher">
-		<h2>Logowanie</h2>
+		<p>Dodawanie nauczyciela</p>
 		Login: <form:input path="login" />
 		<br>
 		<form:errors path="login" />
-		Hasło: <form:password path="password" />
+		
+		Hasło: <form:input path="password" />
 		<br>
 		<form:errors path="password" />
+		
+		firstName: <form:input path="firstName" />
 		<br>
-		<input type="submit" value="Submit">
+		<form:errors path="firstName" />
+		
+		lastName: <form:input path="lastName" />
+		<br>
+		<form:errors path="lastName" />
+		
+		email: <form:input path="email" />
+		<br>
+		<form:errors path="email" />
+		phoneNumber: <form:input path="phoneNumber" />
+		<br>
+		<form:errors path="phoneNumber" />
+		
+		secondPhoneNumber: <form:input path="secondPhoneNumber" />
+		<br>
+		<form:errors path="secondPhoneNumber" />
+		
+		
+		<input type="submit" value="Dodaj">
 	</form:form>
-
 </body>
 </html>

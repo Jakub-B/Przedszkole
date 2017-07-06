@@ -1,6 +1,5 @@
 package pl.coderslab.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -19,32 +18,50 @@ public class Parent {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank
 	private String firstName;
-	
+
 	@NotBlank
 	private String lastName;
 	@NotBlank
 	private String login;
 	@NotBlank
-	@Size(min=8)
+	@Size(min = 8)
 	private String password;
 	@NotBlank
 	@Email
 	private String email;
-	
+
 	@NotBlank
 	private Long phoneNumber;
-	
+
 	@NotBlank
 	private Long secondPhoneNumber;
-	
+
 	@NotBlank
 	private String address;
-	
+
 	@ManyToMany
-	List<Children> children=new	ArrayList<>();
+	List<Children> childrens;
+
+	public Parent() {
+		super();
+	}
+
+	public Parent(String firstName, String lastName, String login, String password, String email, Long phoneNumber,
+			Long secondPhoneNumber, String address, List<Children> children) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.login = login;
+		this.password = password;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.secondPhoneNumber = secondPhoneNumber;
+		this.address = address;
+		this.childrens = children;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -110,27 +127,16 @@ public class Parent {
 		this.address = address;
 	}
 
+	public List<Children> getChildrens() {
+		return childrens;
+	}
+
+	public void setChildrens(List<Children> childrens) {
+		this.childrens = childrens;
+	}
+
 	public Long getId() {
 		return id;
 	}
 
-	public Parent(String firstName, String lastName, String login, String password, String email, Long phoneNumber,
-			Long secondPhoneNumber, String address) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.login = login;
-		this.password = password;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.secondPhoneNumber = secondPhoneNumber;
-		this.address = address;
-	}
-
-	public Parent() {
-		super();
-	}
-
-	
-	
 }
